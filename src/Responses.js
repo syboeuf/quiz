@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { questions } from "./constants";
+import quiz from "utils/quiz";
 
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -13,7 +13,7 @@ const Responses = ({ answers }) => {
   useEffect(() => {
     let sumGoodAnswers = 0;
     answers.forEach((choice, index) => {
-      if (choice === questions[index].answer) {
+      if (choice === quiz["marvel"][index].answer) {
         sumGoodAnswers++;
       }
     });
@@ -21,14 +21,14 @@ const Responses = ({ answers }) => {
   }, []);
 
   return (
-    <Box sx={{ padding: 2 }} display="flex">
+    <Box sx={{ p: 2 }} display="flex">
       <Grid container spacing={2} justifyContent="center">
         <Grid item xs={12}>
           <Typography align="center">
-            {`Votre score : ${goodAnswersLength}/${questions.length}`}
+            {`Votre score : ${goodAnswersLength}/${quiz["marvel"].length}`}
           </Typography>
         </Grid>
-        {questions.map(({ answer, choices }, index) => (
+        {quiz["marvel"].map(({ answer, choices }, index) => (
           <Grid item xs={8} key={index}>
             <Box
               sx={{
@@ -41,23 +41,19 @@ const Responses = ({ answers }) => {
             >
               {answer === answers[index] ? <DoneAllIcon /> : <CloseIcon />}
               {answer === answers[index] && (
-                <Typography sx={{ marginLeft: 2 }}>
-                  {choices[answer]}
-                </Typography>
+                <Typography sx={{ ml: 2 }}>{choices[answer]}</Typography>
               )}
               {answer !== answers[index] && (
-                <Box sx={{ marginLeft: 2 }}>
+                <Box sx={{ ml: 2 }}>
                   <Box display="flex" alignItems="center">
                     <Typography>Votre réponse :</Typography>
-                    <Typography sx={{ marginLeft: 2 }}>
+                    <Typography sx={{ ml: 2 }}>
                       {choices[answers[index]]}
                     </Typography>
                   </Box>
                   <Box display="flex" alignItems="center">
                     <Typography>Bonne réponse : </Typography>
-                    <Typography sx={{ marginLeft: 2 }}>
-                      {choices[answer]}
-                    </Typography>
+                    <Typography sx={{ ml: 2 }}>{choices[answer]}</Typography>
                   </Box>
                 </Box>
               )}
