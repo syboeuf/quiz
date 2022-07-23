@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useFirebase } from "context/Firebase";
 import { useNavigate } from "react-router-dom";
 
+import useIsMounted from "hooks/useIsMounted";
+
 import GlobalContainer from "components/GlobalContainer";
 import CardQuiz from "components/CardQuiz";
 
@@ -17,6 +19,7 @@ const Home = () => {
   const [error, setError] = useState(null);
   const { db } = useFirebase();
   const navigate = useNavigate();
+  const isMounted = useIsMounted();
 
   useEffect(() => {
     getQuiz();
@@ -30,7 +33,9 @@ const Home = () => {
         ...snapshot.data(),
         id: snapshot.id,
       }));
-      setQuiz(quizData);
+      if (isMounted()) {
+        setQuiz(quizData);
+      }
     } catch (error) {
       setError(error.message);
     }
