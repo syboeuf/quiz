@@ -58,10 +58,10 @@ const Quiz = () => {
         <Grid item xs={12}>
           <Box display="flex" flexWrap="wrap" justifyContent="space-between">
             {quiz.map((data, index) => {
-              const { image, path, name } = data;
+              const { image, id, name } = data;
               return (
                 <CardQuiz
-                  click={() => console.log("navigate to /admin/quiz/{quidId}")}
+                  click={() => navigate(`${routes.adminQuiz}/${id}`)}
                   image={image}
                   quizName={name}
                   key={index}

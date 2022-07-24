@@ -55,8 +55,9 @@ const GeneralData = ({ handleNext }) => {
       !nbOfChoices.includes(nbChoices)
     ) {
       setError("Un champs est mal rempli !");
+      return;
     }
-    handleNext({ title, themes, nbOfChoices });
+    handleNext({ title, themes, nbChoices });
   };
 
   return (

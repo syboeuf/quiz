@@ -7,6 +7,7 @@ import Page from "view/Page";
 import Admin from "view/Admin";
 import Quiz from "view/Admin/Quiz";
 import AddQuiz from "view/Admin/Quiz/AddQuiz";
+import UpdateQuiz from "view/Admin/Quiz/UpdateQuiz";
 
 import * as routes from "utils/routes";
 
@@ -20,6 +21,7 @@ const App = () => (
           <Route path={routes.admin} element={<Admin />} />
           <Route path={routes.adminQuiz} element={<Quiz />} />
           <Route path={routes.adminAddQuiz} element={<AddQuiz />} />
+          <Route path={routes.adminUpdateQuiz} element={<UpdateQuiz />} />
         </Routes>
       </BrowserRouter>
     </QuizProvider>

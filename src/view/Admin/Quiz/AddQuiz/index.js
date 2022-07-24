@@ -2,6 +2,7 @@ import { useState, Fragment } from "react";
 
 import GeneralData from "./GeneralData";
 import Questions from "./Questions";
+import Summary from "./Summary";
 
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -17,8 +18,6 @@ export default function HorizontalLinearStepper() {
   const [skipped, setSkipped] = useState(new Set());
   const [dataQuiz, setDataQuiz] = useState({});
 
-  const isStepOptional = (step) => step === 1;
-
   const isStepSkipped = (step) => skipped.has(step);
 
   const handleNext = (dataStep) => {
@@ -27,7 +26,7 @@ export default function HorizontalLinearStepper() {
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
     }
-    setDataQuiz((prevData) => ({ ...prevData, [activeStep]: dataStep }));
+    setDataQuiz((prevData) => ({ ...prevData, ...dataStep }));
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
   };
@@ -37,14 +36,28 @@ export default function HorizontalLinearStepper() {
 
   const handleReset = () => setActiveStep(0);
 
+  const submitQuiz = async () => {
+    try {
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const renderStep = (step) => {
     switch (step) {
       case 0:
         return <GeneralData handleNext={handleNext} />;
       case 1:
-        return <Questions dataQuiz={dataQuiz} />;
+        return <Questions dataQuiz={dataQuiz} handleNext={handleNext} />;
       case 2:
-        return;
+        return (
+          <Summary
+            dataQuiz={dataQuiz}
+            submitQuiz={submitQuiz}
+            setDataQuiz={setDataQuiz}
+            handleBack={handleBack}
+          />
+        );
       default:
         return <GeneralData handleNext={handleNext} />;
     }
